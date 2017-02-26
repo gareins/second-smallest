@@ -86,7 +86,7 @@ T m_nth_element(std::vector<T>& lst) {
 }
 
 template<typename T>
-T twice_bubble(std::vector<T>& lst) {
+T m_twice_bubble(std::vector<T>& lst) {
 	for(int i = 0; i < 2; ++i) {
 		for(auto iter = lst.end() - 1; iter != lst.begin(); --iter) {
 			if(*(iter - 1) > *iter) {
@@ -189,7 +189,7 @@ int main() {
 			std::pair<std::string, fun_t>("two_equal_loops",
 					m_two_identical_loops));
 	method_map.push_back(
-			std::pair<std::string, fun_t>("twice_bubble", twice_bubble));
+			std::pair<std::string, fun_t>("twice_bubble", m_twice_bubble));
 
 	srand(time(NULL));
 	const size_t MIN_ITER = 100;
