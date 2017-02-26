@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 from matplotlib.font_manager import FontProperties
 
 FNAME = argv[1]
-FNAME_OUT = FNAME.split(".")[0] + ".svg"
+FNAME_OUT = FNAME.split(".")[0] + ".png"
 
 GRAPH_NAMES = ["average", "best case", "worst case", "relative", "#wins"]
 BASE_ALGO = "one_for_loop"
@@ -69,10 +69,3 @@ if __name__ == "__main__":
   
   plt.savefig(FNAME_OUT)
     
-  
-  
-      
-    
-    
-      
-  
