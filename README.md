@@ -84,6 +84,9 @@ It very much depends on the machine, but in on my i5, this was the fastest
 method of the bunch, where reasons probably lie in cache and jump prediction,
 but I really don't know why. If anyone knows, shoot!
 
+Negative property of this method would be the fact, that it is very unstable, 
+very fast sometimes and slower other times.
+
 ### Tournament
 
 This is a very nice algorithm, that is indeed very fast, but only in cases,
@@ -101,6 +104,13 @@ This method performs 2n + log(n) loads, n + logn comparisons and n stores.
 TODO: pseudo code.
 
 ## Results
+
+In the results we discard first two rounds, to discard for the time, the
+tournament algorithm needs to alocate space.
+
+We have plots for average, best and worst case scenarios, we have relative 
+plot of average speeds and the number of times an algorithm won in at a
+given size.
 
 [See this file](out/1/RESULTS.md).
 

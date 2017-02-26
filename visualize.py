@@ -42,11 +42,8 @@ if __name__ == "__main__":
   with open(FNAME, "r") as fp:
     for line in fp:
       algo, size, *rest = line.split(";")
-      times = [int(i) for i in rest]
-      percent = int(len(times) / 20)
-      
-      times.sort()
-      dat[algo][int(float(size))] = times[percent: -percent]
+      # remove first five measurements
+      dat[algo][int(float(size))] = [int(i) for i in rest[5:]] 
   
   dat = statistics(dat)
   
