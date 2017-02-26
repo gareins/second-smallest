@@ -13,12 +13,19 @@
 * [double](report_double.csv)
 * [float](report_float.csv)
 
+## SVG visualized
+
+* [int](report_int.svg)
+* [long long](report_llong.svg)
+* [double](report_double.svg)
+* [float](report_float.svg)
+
 ## Visualized
 
-![int](report_int.svg)
+![int](report_int.png)
 
-![long long](report_llong.svg)
+![long long](report_llong.png)
 
-![double](report_double.svg)
+![double](report_double.png)
 
-![float](report_float.svg)
+![float](report_float.png)
