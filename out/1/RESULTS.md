@@ -15,10 +15,10 @@
 
 ## Visualized
 
-[int](report_int.svg)
+![int](report_int.svg)
 
-[long long](report_llong.svg)
+![long long](report_llong.svg)
 
-[double](report_double.svg)
+![double](report_double.svg)
 
-[float](report_float.svg)
+![float](report_float.svg)
