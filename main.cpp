@@ -1,5 +1,5 @@
 //============================================================================
-// Name        : SecondBiggest.cpp
+// Name        : main.cpp
 // Author      : Ozbolt Menegatti
 // Version     : 0.1
 // Copyright   : GPL
@@ -40,7 +40,26 @@ int benchmark(const std::vector<T>& vec, T (*f)(std::vector<T>&)) {
 }
 
 template<typename T>
-T m_one_for_loop(std::vector<T>& lst) {
+T m_one_for_loop_1if(std::vector<T>& lst) {
+	T first = std::min(lst[0], lst[1]);
+	T second = std::max(lst[0], lst[1]);
+
+	for (auto iter = lst.begin() + 2; iter != lst.end(); ++iter) {
+		if (*iter < second) {
+			if (*iter < first) {
+				second = first;
+				first = *iter;
+			} else {
+				second = *iter;
+			}
+		}
+	}
+
+	return second;
+}
+
+template<typename T>
+T m_one_for_loop_2if(std::vector<T>& lst) {
 	T first = std::min(lst[0], lst[1]);
 	T second = std::max(lst[0], lst[1]);
 
@@ -173,7 +192,7 @@ T m_tournament(std::vector<T>& lst) {
 					lst[2 * tree_size - zero_pair_idx - 1]));
 }
 
-typedef long long mytype;
+typedef int mytype;
 typedef mytype (*fun_t)(std::vector<mytype>&);
 
 int main() {
@@ -181,7 +200,9 @@ int main() {
 	method_map.push_back(
 			std::pair<std::string, fun_t>("tournament", m_tournament));
 	method_map.push_back(
-			std::pair<std::string, fun_t>("one_for_loop", m_one_for_loop));
+			std::pair<std::string, fun_t>("one_for_loop_1if", m_one_for_loop_1if));
+	method_map.push_back(
+			std::pair<std::string, fun_t>("one_for_loop_2if", m_one_for_loop_2if));
 	method_map.push_back(
 			std::pair<std::string, fun_t>("two_different_loops",
 					m_two_different_loops));
@@ -194,7 +215,7 @@ int main() {
 	srand(time(NULL));
 	const size_t MIN_ITER = 100;
 	const size_t MAX_ITER = 300;
-	const size_t MAX_SEC = 200;
+	const size_t MAX_SEC = 100;
 	const size_t MIN_SIZE = 100;
 	const double STEP_SIZE = 1.2;
 
@@ -252,4 +273,3 @@ int main() {
 		}
 	}
 }
-
