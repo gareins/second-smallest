@@ -18,7 +18,7 @@ This is the simplest answer, but is very slow and the only one with
 time complexity of O(n logn). By my measurements, it is about ten times 
 slower then other methods.
 
-### Find smallest element, remove it and find the smllest one again
+### Find smallest element, remove it and find the smallest one again
 
 In graphs, this one is named *two equal loops*. Even though it is very 
 simple and quite fast, it was not good enough at an interview. By my 
