@@ -1,4 +1,4 @@
-# Comparison fo algorithms for finding second smallest element
+# Comparison of algorithms for finding second smallest element
 
 Finding this algorithm is a classical question at job interviews. 
 When I was asked this question, I was able to satisfy the recruiter,
