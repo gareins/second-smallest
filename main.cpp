@@ -192,10 +192,10 @@ T m_tournament(std::vector<T>& lst) {
 					lst[2 * tree_size - zero_pair_idx - 1]));
 }
 
-typedef int mytype;
-typedef mytype (*fun_t)(std::vector<mytype>&);
+template<typename T>
+void test_for_a_type(size_t MIN_ITER, size_t MAX_ITER, size_t MAX_SEC, size_t MIN_SIZE, double STEP_SIZE) {
+	using fun_t = T (*)(std::vector<T>&);
 
-int main() {
 	std::vector<std::pair<std::string, fun_t>> method_map;
 	method_map.push_back(
 			std::pair<std::string, fun_t>("tournament", m_tournament));
@@ -212,13 +212,6 @@ int main() {
 	method_map.push_back(
 			std::pair<std::string, fun_t>("twice_bubble", m_twice_bubble));
 
-	srand(time(NULL));
-	const size_t MIN_ITER = 100;
-	const size_t MAX_ITER = 300;
-	const size_t MAX_SEC = 100;
-	const size_t MIN_SIZE = 100;
-	const double STEP_SIZE = 1.2;
-
 	std::vector<int> methods(method_map.size());
 	std::iota(std::begin(methods), std::end(methods), 0);
 
@@ -231,7 +224,7 @@ int main() {
 		results.resize(method_map.size(), std::vector<int>());
 
 		// make vec to work on
-		std::vector<mytype> vec = make_vec<mytype>(n);
+		std::vector<T> vec = make_vec<T>(n);
 
 		size_t iter = 0;
 		std::chrono::steady_clock::time_point begin =
@@ -271,5 +264,33 @@ int main() {
 			}
 			std::cout << std::endl;
 		}
+	}
+}
+
+int main(int argc, const char** argv) {
+	if(argc != 7) {
+		std::cout << "Expecting " << argv[0] << " MIN_ITER MAX_ITER MAX_SEC MIN_SIZE STEP_SIZE TYPE" << std::endl;
+		return 1;
+	}
+
+	size_t MIN_ITER = std::atoi(argv[1]); // 100
+	size_t MAX_ITER = std::atoi(argv[2]); // 300;
+	size_t MAX_SEC = std::atoi(argv[3]); // 200;
+	size_t MIN_SIZE = std::atoi(argv[4]); // 100;
+	double STEP_SIZE = std::atof(argv[5]); // 1.2;
+
+	if(MIN_ITER == 0 || MAX_ITER == 0 || MAX_SEC == 0 || MIN_SIZE == 0 || STEP_SIZE == 0) {
+		std::cout << "One of (MIN_ITER MAX_ITER MAX_SEC MIN_SIZE STEP_SIZE TYPE) was converted to 0..." << std::endl;
+		return 1;
+	}
+
+	srand(time(NULL));
+
+	switch(argv[6][0]) {
+	case 'l': test_for_a_type<long long>(MIN_ITER, MAX_ITER, MAX_SEC, MIN_SIZE, STEP_SIZE); break;
+	case 'i': test_for_a_type<int>(MIN_ITER, MAX_ITER, MAX_SEC, MIN_SIZE, STEP_SIZE); break;
+	case 'd': test_for_a_type<double>(MIN_ITER, MAX_ITER, MAX_SEC, MIN_SIZE, STEP_SIZE); break;
+	case 'f': test_for_a_type<float>(MIN_ITER, MAX_ITER, MAX_SEC, MIN_SIZE, STEP_SIZE); break;
+	default: std::cout << "Use one of [lidf] for type." << std::endl;
 	}
 }

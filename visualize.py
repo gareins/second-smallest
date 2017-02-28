@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 from matplotlib.font_manager import FontProperties
 
 FNAME = argv[1]
-FNAME_OUT = FNAME.split(".")[0] + ".png"
+FNAME_BASE = FNAME.split(".")[0]
 
 GRAPH_NAMES = ["average", "best case", "worst case", "relative", "#wins"]
 BASE_ALGO = "one_for_loop_1if"
@@ -18,12 +18,13 @@ def statistics(dat):
   to_ret = defaultdict(dict)
   for algo, rst in dat.items():
     for size, times in rst.items():
-      to_ret[algo][size] = [sum(times) / len(times), times[0], times[-1]]
+      sorted_times = sorted(times)
+      to_ret[algo][size] = [sum(times) / len(times), sorted_times[0], sorted_times[int(-len(sorted_times)/10)]]
 
   for size in dat[BASE_ALGO].keys():
-    base_avg = dat[BASE_ALGO][size][0]
+    base_avg = to_ret[BASE_ALGO][size][0]
     for algo in algorithms.values():
-      avg_this = dat[algo][size][0]
+      avg_this = to_ret[algo][size][0]
       to_ret[algo][size].append(avg_this / base_avg)
 
   for size in dat[BASE_ALGO].keys():
@@ -65,4 +66,5 @@ if __name__ == "__main__":
   plt.suptitle("Performance of second smallest element algorithms")
   ax[0].set_title("Filename: " + FNAME)
 
-  plt.savefig(FNAME_OUT)
+  plt.savefig(FNAME_BASE + ".png")
+  plt.savefig(FNAME_BASE + ".svg")
