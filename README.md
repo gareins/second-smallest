@@ -45,6 +45,24 @@ makes 2n comparisons and n loads.
       else if element < small:
         small = element
     return small
+    
+### Use one loop, with only one main if statement
+
+As per Jsdemonsim in #1, I implemented this and this is indeed
+the fastest most of the time. It's interesting, how much a small
+change, that would be considered less readable and unnecesary,
+can impact performance for the better.
+
+    small = max(list[0], list[1])
+    smaller = min(list[0], list[1])
+    for element in list[2:]:
+      if element < small:
+        if element < smaller:
+          small = smaller
+          smaller = element
+        else:
+          small = element
+    return small
 
 ### Two runs of bubble sort and then second element
 
